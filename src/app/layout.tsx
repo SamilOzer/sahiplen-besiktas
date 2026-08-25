@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { siteConfig } from "@/config/site";
-import { manrope, newsreader } from "@/lib/fonts";
+import { bricolageGrotesque, manrope, newsreader } from "@/lib/fonts";
 
 import "@/styles/tokens.css";
 import "@/styles/base.css";
@@ -41,7 +41,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="tr"
-      className={`${manrope.variable} ${newsreader.variable}`}
+      className={`${manrope.variable} ${newsreader.variable} ${bricolageGrotesque.variable}`}
     >
       <body>
         <a className="skip-link" href="#main-content">

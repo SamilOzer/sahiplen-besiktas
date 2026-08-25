@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
+import { AdoptionDiscoveryCarousel } from "@/components/home/AdoptionDiscoveryCarousel";
 import { HomepageExperience } from "@/components/home/HomepageExperience";
-import { getMockAnimals } from "@/data/mock/animals";
-import { getMockLostAnimals } from "@/data/mock/lost-animals";
+import { LostAnimalsImageTrail } from "@/components/home/LostAnimalsImageTrail";
 import { createPageMetadata } from "@/lib/metadata";
 
 import "@/styles/homepage.css";
@@ -13,8 +13,11 @@ export const metadata: Metadata = createPageMetadata(
 );
 
 export default function HomePage() {
-  const animals = getMockAnimals().slice(0, 2);
-  const lostAnimals = getMockLostAnimals().slice(0, 2);
-
-  return <HomepageExperience animals={animals} lostAnimals={lostAnimals} />;
+  return (
+    <>
+      <HomepageExperience />
+      <AdoptionDiscoveryCarousel />
+      <LostAnimalsImageTrail />
+    </>
+  );
 }

@@ -17,3 +17,12 @@ export const newsreader = localFont({
   display: "swap",
   fallback: ["Georgia", "Times New Roman", "serif"],
 });
+
+export const bricolageGrotesque = localFont({
+  src: "../assets/fonts/BricolageGrotesque-Variable.ttf",
+  variable: "--font-bricolage-grotesque",
+  weight: "200 800",
+  style: "normal",
+  display: "swap",
+  fallback: ["Impact", "Arial Narrow", "Arial", "sans-serif"],
+});

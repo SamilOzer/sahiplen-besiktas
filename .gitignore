@@ -17,6 +17,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+/.next-dev-*.log
+
+# Local source copies; public versions are served by the app
+/resimler/kayıp-hayvan-*.jpg
 
 # editors and operating systems
 .DS_Store
