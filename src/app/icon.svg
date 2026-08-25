@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Geçici platform simgesi</title>
+  <rect width="64" height="64" rx="8" fill="#790000"/>
+  <rect x="14" y="14" width="36" height="36" rx="18" fill="#F3EED9"/>
+  <rect x="24" y="24" width="16" height="16" rx="8" fill="#FF2C55"/>
+  <rect x="40" y="14" width="10" height="10" rx="5" fill="#00BECE"/>
+</svg>
