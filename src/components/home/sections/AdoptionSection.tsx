@@ -19,7 +19,7 @@ export function AdoptionSection() {
             Her hayvanı kişiliği, yaşam bilgileri ve sahiplendirme durumuyla
             tanıyın. Doğru karşılaşmaya bilgiyle hazırlanın.
           </p>
-          <ButtonLink href="/sahiplendirme">Sahiplendirme sayfasına git</ButtonLink>
+          <ButtonLink href="/sahiplendirme">Yuva Ol sayfasına git</ButtonLink>
           <span className="home-adoption__note">Fotoğraf · kişilik · yaşam bilgisi · durum</span>
         </div>
       </div>

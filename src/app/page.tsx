@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { AdoptionDiscoveryCarousel } from "@/components/home/AdoptionDiscoveryCarousel";
+import { AdoptionImageStreamSection } from "@/components/home/AdoptionImageStreamSection";
 import { HomepageExperience } from "@/components/home/HomepageExperience";
 import { LostAnimalsImageTrail } from "@/components/home/LostAnimalsImageTrail";
 import { createPageMetadata } from "@/lib/metadata";
@@ -18,6 +19,7 @@ export default function HomePage() {
       <HomepageExperience />
       <AdoptionDiscoveryCarousel />
       <LostAnimalsImageTrail />
+      <AdoptionImageStreamSection />
     </>
   );
 }

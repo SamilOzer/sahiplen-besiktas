@@ -14,7 +14,7 @@ export function FinalCtaSection() {
           <p className="eyebrow">Sonraki adım</p>
           <h2 id="home-final-title">Doğru adım, bir hayatı değiştirebilir.</h2>
           <div className="home-final__actions">
-            <ButtonLink href="/sahiplendirme">Sahiplendirmeyi keşfet</ButtonLink>
+            <ButtonLink href="/sahiplendirme">Yuva Ol&apos;u keşfet</ButtonLink>
             <ButtonLink href="/kayip-hayvanlar" variant="secondary">
               Kayıp hayvanlara bak
             </ButtonLink>

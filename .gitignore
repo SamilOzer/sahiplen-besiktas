@@ -21,6 +21,12 @@ pnpm-debug.log*
 
 # Local source copies; public versions are served by the app
 /resimler/kayıp-hayvan-*.jpg
+/resimler/iletişim*.avif
+
+# Local design QA evidence
+/design-qa-*.png
+/design-qa-evidence/
+/design-qa.md
 
 # editors and operating systems
 .DS_Store

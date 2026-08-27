@@ -2,7 +2,22 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @source "../components/home/LostAnimalsImageTrail.tsx";
+@source "../components/home/AdoptionImageStreamSection.tsx";
 @source "../components/ui/image-trail.tsx";
+@source "../components/ui/image-stream-hero.tsx";
+
+.adoption-image-stream__title {
+  color: var(--color-brand-warm);
+}
+
+.adoption-image-stream {
+  scroll-margin-top: var(--header-height);
+}
+
+.adoption-image-stream__cta,
+.adoption-image-stream__cta:hover {
+  color: white;
+}
 
 body:has(.scroll-story) {
   overflow-x: clip;
@@ -824,7 +839,7 @@ body:has(.scroll-story) .site-footer {
   }
 }
 
-/* Lost-animal ImageTrail — final homepage section */
+/* Lost-animal ImageTrail */
 .lost-animals-image-trail {
   position: relative;
   min-height: max(45rem, calc(100svh - var(--header-height)));

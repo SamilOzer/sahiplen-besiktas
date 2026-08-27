@@ -2,7 +2,9 @@ import type {
   AdoptionStatus,
   AnimalAgeGroup,
   AnimalGender,
+  AnimalHealthStatus,
   AnimalSpecies,
+  AnimalSterilizationStatus,
 } from "@/types/animal";
 import type { LostAnimalStatus } from "@/types/lost-animal";
 
@@ -28,6 +30,20 @@ export const adoptionStatusLabels: Record<AdoptionStatus, string> = {
   available: "Sahiplendirilebilir",
   reserved: "Görüşme sürecinde",
   adopted: "Sahiplendirildi",
+};
+
+export const sterilizationStatusLabels: Record<
+  AnimalSterilizationStatus,
+  string
+> = {
+  sterilized: "Kısırlaştırılmış",
+  not_sterilized: "Kısırlaştırılmamış",
+};
+
+export const healthStatusLabels: Record<AnimalHealthStatus, string> = {
+  balance_issue: "Denge problemli",
+  disabled: "Engelli",
+  healthy: "Sağlıklı",
 };
 
 export const lostAnimalStatusLabels: Record<LostAnimalStatus, string> = {

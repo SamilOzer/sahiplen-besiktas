@@ -55,7 +55,7 @@ export default function AboutPage() {
             <p>
               Tasarımın görevi yalnızca güzel görünmek değil; vatandaşın doğru içeriğe hızlıca ulaşmasını, bir hayvanı sorumlu biçimde tanımasını ve sonraki adımı güvenle anlayabilmesini sağlamaktır.
             </p>
-            <ButtonLink href="/sahiplendirme" variant="text">Sahiplendirmeyi keşfet</ButtonLink>
+            <ButtonLink href="/sahiplendirme" variant="text">Yuva Ol&apos;u keşfet</ButtonLink>
           </div>
         </section>
 

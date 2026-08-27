@@ -2,6 +2,8 @@ export type AnimalSpecies = "cat" | "dog";
 export type AnimalGender = "female" | "male" | "unknown";
 export type AnimalAgeGroup = "young" | "adult" | "senior" | "unknown";
 export type AdoptionStatus = "available" | "reserved" | "adopted";
+export type AnimalSterilizationStatus = "sterilized" | "not_sterilized";
+export type AnimalHealthStatus = "balance_issue" | "disabled" | "healthy";
 
 export interface AnimalImage {
   readonly src: string;
@@ -15,8 +17,12 @@ export interface AnimalRecord {
   readonly slug: string;
   readonly name: string;
   readonly species: AnimalSpecies;
+  readonly breed: string;
   readonly gender: AnimalGender;
+  readonly age: number;
   readonly ageGroup: AnimalAgeGroup;
+  readonly sterilizationStatus: AnimalSterilizationStatus;
+  readonly healthStatus: AnimalHealthStatus;
   readonly adoptionStatus: AdoptionStatus;
   readonly personalitySummary: string;
   readonly trainingNotes: string | null;
@@ -27,6 +33,7 @@ export interface AnimalRecord {
 export interface AnimalFilters {
   readonly species?: AnimalSpecies;
   readonly gender?: AnimalGender;
-  readonly ageGroup?: AnimalAgeGroup;
-  readonly adoptionStatus?: AdoptionStatus;
+  readonly age?: number;
+  readonly sterilizationStatus?: AnimalSterilizationStatus;
+  readonly healthStatus?: AnimalHealthStatus;
 }

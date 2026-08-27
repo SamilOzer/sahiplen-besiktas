@@ -27,7 +27,7 @@ export function HeroSection() {
             güvenilir bilgiye tek bir kamusal hizmet üzerinden ulaşın.
           </p>
           <div className="button-group" data-hero-copy>
-            <ButtonLink href="/sahiplendirme">Sahiplendirmeyi keşfet</ButtonLink>
+            <ButtonLink href="/sahiplendirme">Yuva Ol&apos;u keşfet</ButtonLink>
             <ButtonLink href="/kayip-hayvanlar" variant="secondary">
               Kayıp hayvan ara
             </ButtonLink>
