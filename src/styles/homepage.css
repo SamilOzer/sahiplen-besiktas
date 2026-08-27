@@ -19,6 +19,9 @@
   color: white;
 }
 
+.image-stream-toggle { position: absolute; z-index: 20; right: var(--space-4); top: var(--space-4); min-height: 2.75rem; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-inverse-border); background: var(--color-ink-1000); color: var(--color-inverse-text); font-size: var(--text-xs); }
+@media (prefers-reduced-motion: reduce) { .image-stream-toggle { display: none; } }
+
 body:has(.scroll-story) {
   overflow-x: clip;
   background: var(--color-ink-1000);
@@ -67,10 +70,6 @@ body:has(.scroll-story) .site-header .mobile-navigation {
 body:has(.scroll-story) .site-header .mobile-navigation a {
   border-bottom-color: rgb(243 238 217 / 0.18);
   color: var(--color-inverse-text);
-}
-
-body:has(.scroll-story) .site-footer {
-  display: none;
 }
 
 .sr-only {
@@ -338,6 +337,21 @@ body:has(.scroll-story) .site-footer {
 .scroll-story__action:hover {
   color: var(--color-brand-warm);
 }
+
+/* The story remains navigable before enhancement and after media failure. */
+.scroll-story[data-motion="loading"] .scroll-story__annotation:not(:first-child),
+.scroll-story[data-motion="loading"] .scroll-story__connectors { visibility: hidden; }
+.scroll-story[data-motion="loading"] .scroll-story__action { visibility: visible; opacity: 1; }
+.scroll-story[data-motion="static"] { height: auto; min-height: 0; margin-top: var(--header-height); }
+.scroll-story[data-motion="static"] .scroll-story__annotation:not(:last-child),
+.scroll-story[data-motion="static"] .scroll-story__connectors,
+.scroll-story[data-motion="static"] .scroll-story__scroll-hint,
+.scroll-story[data-motion="static"] .scroll-story__meta,
+.scroll-story[data-motion="static"] .scroll-story__progress { display: none; }
+.scroll-story[data-motion="static"] .scroll-story__annotation:last-child,
+.scroll-story[data-motion="static"] .scroll-story__action { visibility: visible; opacity: 1; transform: none; }
+.lost-animals-image-trail__cta { position: relative; display: inline-flex; align-items: center; gap: var(--space-4); min-height: 3rem; margin-top: var(--space-5); padding: var(--space-3) var(--space-5); border: 1px solid var(--color-inverse-border); background: var(--color-ink-1000); color: var(--color-brand-warm); pointer-events: auto; text-decoration: none; }
+.lost-animals-image-trail__cta:hover { color: var(--color-inverse-text); border-color: var(--color-brand-primary); }
 
 .scroll-story__action svg {
   fill: none;

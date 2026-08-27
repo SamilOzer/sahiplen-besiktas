@@ -29,23 +29,22 @@ export function LostAnimalsSection({ animals }: LostAnimalsSectionProps) {
         <div className="home-lost__content">
           <div className="home-lost__intro">
             <p className="home-section-index" aria-hidden="true">05 / İZ</p>
-            <p className="eyebrow">Kayıp hayvanlar</p>
+            <p className="eyebrow">Kayıp Can Dostlarımız</p>
             <h2 id="home-lost-title">Bir iz, eve dönüşün başlangıcı olabilir.</h2>
             <p>
               Kayıp ve bulunan hayvan ilanlarını tür, konum ve durum bilgileriyle
               hızla tarayın.
             </p>
-            <ButtonLink href="/kayip-hayvanlar">Kayıp hayvanları gör</ButtonLink>
+            <ButtonLink href="/kayip-hayvanlar">İlanları incele</ButtonLink>
           </div>
 
-          <div className="home-lost__previews" aria-label="Demo ilan önizlemeleri">
+          <div className="home-lost__previews" aria-label="İlan önizlemeleri">
             {animals.map((animal) => (
               <HomepageLostPreview animal={animal} key={animal.id} />
             ))}
           </div>
           <p className="home-data-note home-data-note--inverse">
-            Gösterilen ilanlar demo verisidir; gerçek ihbar veya iletişim bilgisi
-            içermez.
+            İlanları görsel, konum ve tarih bilgileriyle birlikte karşılaştırın.
           </p>
         </div>
       </div>

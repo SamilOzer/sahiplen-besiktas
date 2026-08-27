@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 
 import { ImageTrail } from "@/components/ui/image-trail";
@@ -25,7 +26,7 @@ function LostAnimalsImageTrail() {
       id="kayip-hayvanlar-bolumu"
       ref={sectionRef}
     >
-      <div className="lost-animals-image-trail__trail absolute inset-0 z-0">
+      <div className="lost-animals-image-trail__trail absolute inset-0 z-0" aria-hidden="true">
         <ImageTrail
           containerRef={sectionRef}
           interval={100}
@@ -38,7 +39,7 @@ function LostAnimalsImageTrail() {
               key={url}
             >
               <Image
-                alt={`Kayıp hayvan ${index + 1}`}
+                alt=""
                 className="absolute inset-0 h-full w-full object-cover"
                 draggable={false}
                 fill
@@ -55,8 +56,9 @@ function LostAnimalsImageTrail() {
           className="lost-animals-image-trail__title text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight select-none"
           id="lost-animals-trail-title"
         >
-          Kayıp hayvanları bulmama yardım et
+          Kayıp can dostlarımızı birlikte bulalım
         </h2>
+        <Link className="lost-animals-image-trail__cta" href="/kayip-hayvanlar">İlanları incele <span aria-hidden="true">↗</span></Link>
       </div>
     </section>
   );

@@ -33,7 +33,7 @@ export function AcademySection({ items }: AcademySectionProps) {
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
               </div>
-              <span className="demo-badge">Onaylı içerik bekleniyor</span>
+              <ButtonLink href={item.href} variant="text">Rehberi oku</ButtonLink>
             </li>
           ))}
         </ol>

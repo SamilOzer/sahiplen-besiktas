@@ -26,7 +26,7 @@ export function AnimalDiscoverySection({
             Tüm hayvanları gör
           </ButtonLink>
           <p className="home-data-note">
-            Demo kayıtlar gerçek hayvanları temsil etmez; üretim verisi aynı typed veri katmanına bağlanacaktır.
+            Tanışmadan önce günlük ihtiyaçları, bakım sorumluluklarını ve güncel sahiplendirme durumunu inceleyin.
           </p>
           </div>
 

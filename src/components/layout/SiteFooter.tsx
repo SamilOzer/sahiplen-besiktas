@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { legalNavigation, primaryNavigation } from "@/config/navigation";
+import { municipality } from "@/config/municipality";
 
 export function SiteFooter() {
   return (
@@ -35,7 +36,9 @@ export function SiteFooter() {
             ))}
           </ul>
           <p className="site-footer__note">
-            Onaylı iletişim bilgileri üretim içeriğiyle eklenecektir.
+            Çözüm Merkezi: <a href={municipality.phoneHref}>{municipality.phone}</a>
+            <br />
+            <a href={municipality.sources.contact}>Resmî iletişim kanalları</a>
           </p>
         </div>
       </div>

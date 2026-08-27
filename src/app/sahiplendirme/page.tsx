@@ -6,7 +6,6 @@ import { ArrowCounterClockwise } from "@phosphor-icons/react/dist/ssr/ArrowCount
 import { GenderNeuter } from "@phosphor-icons/react/dist/ssr/GenderNeuter";
 import { GenderIntersex } from "@phosphor-icons/react/dist/ssr/GenderIntersex";
 import { Heartbeat } from "@phosphor-icons/react/dist/ssr/Heartbeat";
-import { Info } from "@phosphor-icons/react/dist/ssr/Info";
 import { ListBullets } from "@phosphor-icons/react/dist/ssr/ListBullets";
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 import { PawPrint } from "@phosphor-icons/react/dist/ssr/PawPrint";
@@ -14,7 +13,8 @@ import { PawPrint } from "@phosphor-icons/react/dist/ssr/PawPrint";
 import { AgeRangeFilter } from "@/components/animals/AgeRangeFilter";
 import { AnimalCard } from "@/components/animals/AnimalCard";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { getMockAnimals } from "@/data/mock/animals";
+import { getAnimals } from "@/data/records";
+import { municipality } from "@/config/municipality";
 import { createPageMetadata } from "@/lib/metadata";
 import { getQueryValue, type QueryValue } from "@/lib/query";
 import type {
@@ -23,11 +23,13 @@ import type {
   AnimalHealthStatus,
   AnimalSpecies,
   AnimalSterilizationStatus,
+  AdoptionStatus,
 } from "@/types/animal";
 
 export const metadata: Metadata = createPageMetadata(
   "Yuva Ol",
-  "Sahiplendirilebilir hayvan kayıtlarını tür, cinsiyet, yaş, kısırlaştırma ve sağlık durumu ölçütleriyle incelemek için hazırlanan sayfa.",
+  "Hayvan kayıtlarını tür, cinsiyet, yaş ve sahiplendirme durumuna göre inceleyin; Beşiktaş Belediyesi sahiplendirme hizmetine ulaşın.",
+  "/sahiplendirme",
 );
 
 type SearchParams = Record<string, QueryValue>;
@@ -36,11 +38,15 @@ interface AdoptionPageProps {
   readonly searchParams: Promise<SearchParams>;
 }
 
+const MAX_FILTER_AGE = 50;
+
 function valueFrom<T extends string>(value: string, allowed: readonly T[]): T | undefined {
   return allowed.includes(value as T) ? (value as T) : undefined;
 }
 
 function numberFrom(value: string, min: number, max: number): number | undefined {
+  if (value.trim() === "") return undefined;
+
   const number = Number(value);
   return Number.isInteger(number) && number >= min && number <= max
     ? number
@@ -54,12 +60,14 @@ export default async function AdoptionPage({ searchParams }: AdoptionPageProps) 
   const genderValue = getQueryValue(params.cinsiyet);
   const sterilizationValue = getQueryValue(params.kisir);
   const healthValue = getQueryValue(params.durum);
-  const selectedAge = numberFrom(ageValue, -1, 50) ?? -1;
+  const adoptionValue = getQueryValue(params.sahiplendirme);
+  const selectedMaxAge =
+    numberFrom(ageValue, 0, MAX_FILTER_AGE) ?? MAX_FILTER_AGE;
 
   const filters: AnimalFilters = {
     species: valueFrom<AnimalSpecies>(speciesValue, ["cat", "dog"]),
     gender: valueFrom<AnimalGender>(genderValue, ["female", "male"]),
-    age: selectedAge === -1 ? undefined : selectedAge,
+    maxAge: ageValue.trim() === "" ? undefined : selectedMaxAge,
     sterilizationStatus: valueFrom<AnimalSterilizationStatus>(
       sterilizationValue,
       ["sterilized", "not_sterilized"],
@@ -69,8 +77,10 @@ export default async function AdoptionPage({ searchParams }: AdoptionPageProps) 
       "disabled",
       "healthy",
     ]),
+    adoptionStatus: valueFrom<AdoptionStatus>(adoptionValue, ["available", "reserved", "adopted"]),
   };
-  const animals = getMockAnimals(filters);
+  const animals = getAnimals(filters);
+  const hasPublishedAnimals = getAnimals().length > 0;
 
   return (
     <div className="page page--adoption">
@@ -94,8 +104,8 @@ export default async function AdoptionPage({ searchParams }: AdoptionPageProps) 
             </h1>
             <p>
               Sahiplenmeye hazır hayvanları tür, cinsiyet, yaş, kısırlaştırma ve
-              sağlık durumu bilgileriyle tarayın. Kayıtlar bu aşamada yalnızca
-              arayüz yapısını gösteren demo içeriklerdir.
+              sağlık durumu bilgileriyle tanıyın. Yaşamınıza uygun bir dostla
+              tanışmak için sahiplenme sürecini öğrenin.
             </p>
           </div>
 
@@ -128,7 +138,10 @@ export default async function AdoptionPage({ searchParams }: AdoptionPageProps) 
                 </div>
               </div>
 
-              <AgeRangeFilter defaultValue={selectedAge} />
+              <AgeRangeFilter
+                defaultValue={selectedMaxAge}
+                max={MAX_FILTER_AGE}
+              />
 
               <div className="form-field adoption-filter-field">
                 <label htmlFor="sterilization-status">Kısırlaştırma</label>
@@ -147,7 +160,7 @@ export default async function AdoptionPage({ searchParams }: AdoptionPageProps) 
               </div>
 
               <div className="form-field adoption-filter-field">
-                <label htmlFor="health-status">Durum</label>
+                <label htmlFor="health-status">Sağlık durumu</label>
                 <div className="adoption-filter-control">
                   <Heartbeat aria-hidden="true" size={19} />
                   <select
@@ -159,6 +172,16 @@ export default async function AdoptionPage({ searchParams }: AdoptionPageProps) 
                     <option value="balance_issue">Denge problemli</option>
                     <option value="disabled">Engelli</option>
                     <option value="healthy">Sağlıklı</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-field adoption-filter-field">
+                <label htmlFor="adoption-status">Sahiplendirme durumu</label>
+                <div className="adoption-filter-control">
+                  <ListBullets aria-hidden="true" size={19} />
+                  <select id="adoption-status" name="sahiplendirme" defaultValue={adoptionValue}>
+                    <option value="">Tümü</option><option value="available">Yuva arıyor</option><option value="reserved">Görüşme aşamasında</option><option value="adopted">Sahiplendirildi</option>
                   </select>
                 </div>
               </div>
@@ -187,19 +210,10 @@ export default async function AdoptionPage({ searchParams }: AdoptionPageProps) 
         <div className="adoption-results__heading">
           <div>
             <ListBullets aria-hidden="true" size={28} />
-            <h2 id="adoption-results-title">Demo kayıtlar</h2>
+            <h2 id="adoption-results-title">Yuva arayan dostlarımız</h2>
           </div>
-          <p aria-live="polite">{animals.length} demo kayıt gösteriliyor</p>
+          <p aria-live="polite">{animals.length} kayıt gösteriliyor</p>
         </div>
-
-        <aside className="adoption-demo-note" aria-label="Demo veri uyarısı">
-          <Info aria-hidden="true" size={18} weight="fill" />
-          <p>
-            <strong>Demo veri uyarısı:</strong> Bu sayfadaki hiçbir kayıt gerçek bir
-            hayvanı temsil etmez. Üretim verisi sağlandığında aynı tipli veri
-            katmanına bağlanacaktır.
-          </p>
-        </aside>
 
         {animals.length > 0 ? (
           <div className="animal-grid">
@@ -209,10 +223,15 @@ export default async function AdoptionPage({ searchParams }: AdoptionPageProps) 
           </div>
         ) : (
           <EmptyState
-            title="Bu filtrelerle demo kayıt bulunamadı"
-            description="Filtreleri temizleyerek tüm geliştirme kayıtlarını yeniden görüntüleyebilirsiniz."
+            title={hasPublishedAnimals ? "Bu filtrelerle eşleşen kayıt bulunamadı." : "Bu sitede henüz hayvan kaydı yayımlanmadı."}
+            description={hasPublishedAnimals ? "Daha geniş bir yaş aralığı seçin veya filtreleri temizleyin." : "Bu durum, belediyede sahiplenilebilecek hayvan olmadığı anlamına gelmez. Güncel bilgi ve tanışma için Çözüm Merkezi ile görüşebilirsiniz."}
+            action={hasPublishedAnimals ? { href: "/sahiplendirme", label: "Filtreleri temizle" } : { href: "/iletisim", label: "Sahiplenme için iletişime geçin" }}
           />
         )}
+        <section className="service-callout" aria-labelledby="adoption-process-title">
+          <div><p className="eyebrow">Bir sonraki adım</p><h2 id="adoption-process-title">Tanışmaya hazırlanmakla başlayın.</h2><p>Yaşam düzeninizi ve bakım sorumluluklarını değerlendirin. Ziyaret ve başvuru için güncel bilgiyi belediyenin ilgili biriminden alın.</p></div>
+          <div className="button-group"><Link className="button button--primary" href="/akademi/besiktasta-sahiplenme">Sahiplenme rehberi</Link><a className="button button--secondary" href={municipality.phoneHref}>{municipality.phone} · Ara</a></div>
+        </section>
       </section>
     </div>
   );

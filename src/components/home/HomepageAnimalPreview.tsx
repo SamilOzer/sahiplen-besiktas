@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   adoptionStatusLabels,
@@ -15,6 +16,7 @@ interface HomepageAnimalPreviewProps {
 export function HomepageAnimalPreview({
   animal,
 }: HomepageAnimalPreviewProps) {
+  if (animal.isDemo) return null;
   return (
     <article
       className="home-animal-card"
@@ -33,14 +35,13 @@ export function HomepageAnimalPreview({
         ) : (
           <div className="home-animal-card__placeholder" aria-hidden="true">
             <span>{speciesLabels[animal.species]}</span>
-            <small>Onaylı görsel alanı</small>
+            <small>Görsel paylaşılmadı</small>
           </div>
         )}
       </div>
 
       <div className="home-animal-card__content">
         <div className="home-preview__badges">
-          {animal.isDemo ? <span className="demo-badge">Demo kayıt</span> : null}
           <span className="status-badge" data-status={animal.adoptionStatus}>
             {adoptionStatusLabels[animal.adoptionStatus]}
           </span>
@@ -50,13 +51,13 @@ export function HomepageAnimalPreview({
             <p className="home-animal-card__meta">
               {speciesLabels[animal.species]} · {ageGroupLabels[animal.ageGroup]} · {genderLabels[animal.gender]}
             </p>
-            <h3>{animal.name}</h3>
+            <h3><Link href={`/sahiplendirme/${animal.slug}`}>{animal.name}</Link></h3>
           </div>
           <span aria-hidden="true">↗</span>
         </div>
         <p>{animal.personalitySummary}</p>
         <p className="home-animal-card__training">
-          <strong>Eğitim bilgisi:</strong> {animal.trainingNotes ?? "Demo kayıtta belirtilmedi"}
+          <strong>Eğitim bilgisi:</strong> {animal.trainingNotes ?? "Belirtilmedi"}
         </p>
       </div>
     </article>

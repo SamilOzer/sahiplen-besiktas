@@ -33,7 +33,8 @@ export interface AnimalRecord {
 export interface AnimalFilters {
   readonly species?: AnimalSpecies;
   readonly gender?: AnimalGender;
-  readonly age?: number;
+  readonly maxAge?: number;
   readonly sterilizationStatus?: AnimalSterilizationStatus;
   readonly healthStatus?: AnimalHealthStatus;
+  readonly adoptionStatus?: AdoptionStatus;
 }

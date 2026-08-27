@@ -103,7 +103,7 @@ export function getMockAnimals(filters: AnimalFilters = {}): readonly AnimalReco
   return animals.filter((animal) => {
     if (filters.species && animal.species !== filters.species) return false;
     if (filters.gender && animal.gender !== filters.gender) return false;
-    if (filters.age !== undefined && animal.age !== filters.age) return false;
+    if (filters.maxAge !== undefined && animal.age > filters.maxAge) return false;
     if (
       filters.sterilizationStatus &&
       animal.sterilizationStatus !== filters.sterilizationStatus

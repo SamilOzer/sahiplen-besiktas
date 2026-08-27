@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { siteConfig } from "@/config/site";
+import { siteConfig, siteOrigin } from "@/config/site";
 import { bricolageGrotesque, manrope, newsreader } from "@/lib/fonts";
 
 import "@/styles/tokens.css";
@@ -11,6 +11,8 @@ import "@/styles/base.css";
 import "@/styles/components.css";
 
 export const metadata: Metadata = {
+  metadataBase: siteOrigin ? new URL(siteOrigin) : undefined,
+  robots: siteOrigin ? { index: true, follow: true } : { index: false, follow: false },
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.shortName}`,
@@ -41,6 +43,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="tr"
+      data-scroll-behavior="smooth"
       className={`${manrope.variable} ${newsreader.variable} ${bricolageGrotesque.variable}`}
     >
       <body>

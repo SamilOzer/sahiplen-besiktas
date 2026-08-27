@@ -16,7 +16,7 @@ export function FinalCtaSection() {
           <div className="home-final__actions">
             <ButtonLink href="/sahiplendirme">Yuva Ol&apos;u keşfet</ButtonLink>
             <ButtonLink href="/kayip-hayvanlar" variant="secondary">
-              Kayıp hayvanlara bak
+              Kayıp can dostlarımız
             </ButtonLink>
             <ButtonLink href="/akademi" variant="text">Bilgi al</ButtonLink>
           </div>
@@ -28,7 +28,7 @@ export function FinalCtaSection() {
             fill
             sizes="(max-width: 47.99rem) 100vw, 42vw"
           />
-          <figcaption>Temsilî fotoğraf · Demo içerik</figcaption>
+          <figcaption>Temsilî fotoğraf</figcaption>
         </figure>
       </div>
     </section>

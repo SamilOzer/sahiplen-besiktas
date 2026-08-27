@@ -56,20 +56,21 @@ export function HomepageExperience() {
     let cleanup: (() => void) | undefined;
     let isCancelled = false;
     let hasBuilt = false;
+    let mediaFailed = false;
 
-    function showReducedMotionFrame() {
-      element.dataset.motion = "reduced";
-      if (videoElement.duration) {
-        videoElement.currentTime = Math.max(videoElement.duration - 0.25, 0);
-      }
+    function showStaticFrame() {
+      cleanup?.();
+      cleanup = undefined;
+      hasBuilt = false;
+      element.dataset.motion = "static";
     }
 
     async function buildStory() {
       if (hasBuilt || isCancelled) return;
       hasBuilt = true;
 
-      if (prefersReducedMotion.matches) {
-        showReducedMotionFrame();
+      if (prefersReducedMotion.matches || mediaFailed) {
+        showStaticFrame();
         return;
       }
 
@@ -79,6 +80,10 @@ export function HomepageExperience() {
       ]);
 
       if (isCancelled) return;
+      if (prefersReducedMotion.matches || mediaFailed) {
+        showStaticFrame();
+        return;
+      }
 
       gsap.registerPlugin(ScrollTrigger);
       element.dataset.motion = "ready";
@@ -176,20 +181,37 @@ export function HomepageExperience() {
         );
       }, element);
 
-      const refresh = () => ScrollTrigger.refresh();
+      const refresh = () => { if (!isCancelled && element.dataset.motion === "ready") ScrollTrigger.refresh(); };
       document.fonts.ready.then(refresh).catch(() => undefined);
       cleanup = () => context.revert();
     }
 
-    if (videoElement.readyState >= HTMLMediaElement.HAVE_METADATA) {
-      void buildStory();
-    } else {
-      videoElement.addEventListener("loadedmetadata", buildStory, { once: true });
+    function requestStory() {
+      void buildStory().catch(() => { if (!isCancelled) showStaticFrame(); });
     }
+
+    function handleMediaError() {
+      mediaFailed = true;
+      showStaticFrame();
+    }
+
+    function handleMotionChange() {
+      if (prefersReducedMotion.matches) showStaticFrame();
+      else if (videoElement.readyState >= HTMLMediaElement.HAVE_METADATA) requestStory();
+    }
+
+    videoElement.addEventListener("error", handleMediaError);
+    videoElement.addEventListener("loadedmetadata", requestStory);
+    prefersReducedMotion.addEventListener("change", handleMotionChange);
+    if (prefersReducedMotion.matches) showStaticFrame();
+    else if (videoElement.error) handleMediaError();
+    else if (videoElement.readyState >= HTMLMediaElement.HAVE_METADATA) requestStory();
 
     return () => {
       isCancelled = true;
-      videoElement.removeEventListener("loadedmetadata", buildStory);
+      videoElement.removeEventListener("loadedmetadata", requestStory);
+      videoElement.removeEventListener("error", handleMediaError);
+      prefersReducedMotion.removeEventListener("change", handleMotionChange);
       cleanup?.();
     };
   }, []);
@@ -202,10 +224,12 @@ export function HomepageExperience() {
           className="scroll-story__video"
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/assets/animals/human-dog-bond.webp"
           ref={video}
           src="/assets/video/adoption-story-scroll.mp4"
         />
+        <noscript><style>{`.scroll-story{height:auto!important;min-height:0!important;margin-top:var(--header-height)}.scroll-story__annotation:not(:last-child),.scroll-story__connectors,.scroll-story__scroll-hint,.scroll-story__meta,.scroll-story__progress{display:none!important}.scroll-story__annotation:last-child,.scroll-story__action{visibility:visible!important;opacity:1!important;transform:none!important}`}</style></noscript>
         <div className="scroll-story__scrim" aria-hidden="true" />
         <div className="scroll-story__noise" aria-hidden="true" />
 

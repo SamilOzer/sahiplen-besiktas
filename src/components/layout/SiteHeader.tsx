@@ -16,6 +16,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const previousPathname = useRef(pathname);
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (previousPathname.current !== pathname) {
@@ -26,12 +27,15 @@ export function SiteHeader() {
 
   useEffect(() => {
     function handleEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") setIsOpen(false);
+      if (event.key === "Escape" && isOpen) {
+        setIsOpen(false);
+        menuButton.current?.focus();
+      }
     }
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
+  }, [isOpen]);
 
   return (
     <header className="site-header">
@@ -73,6 +77,7 @@ export function SiteHeader() {
         </nav>
 
         <button
+          ref={menuButton}
           className="menu-button"
           type="button"
           aria-expanded={isOpen}

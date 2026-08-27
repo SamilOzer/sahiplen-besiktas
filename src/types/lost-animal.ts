@@ -21,4 +21,6 @@ export interface LostAnimalFilters {
   readonly species?: AnimalSpecies;
   readonly location?: string;
   readonly status?: LostAnimalStatus;
+  readonly dateFrom?: string;
+  readonly dateTo?: string;
 }

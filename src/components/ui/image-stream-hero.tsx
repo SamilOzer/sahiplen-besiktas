@@ -7,6 +7,7 @@ import {
   type ReactNode,
   useId,
   useMemo,
+  useState,
 } from "react";
 
 import { cn } from "@/lib/utils";
@@ -100,6 +101,7 @@ function ImageStreamHero({
   className,
   ...props
 }: ImageStreamHeroProps) {
+  const [isPaused, setIsPaused] = useState(false);
   const id = useId().replace(/[^a-zA-Z0-9]/g, "");
   const rightAnimation = `ish-r-${id}`;
   const leftAnimation = `ish-l-${id}`;
@@ -112,7 +114,7 @@ function ImageStreamHero({
     () =>
       `${generateKeyframes(1, rightAnimation, corridorPath)}` +
       `${generateKeyframes(-1, leftAnimation, corridorPath)}` +
-      `@media(prefers-reduced-motion:reduce){.${cardClassName}{animation-play-state:paused}}`,
+      `@media(prefers-reduced-motion:reduce){.${cardClassName}{animation-play-state:paused!important}}`,
     [cardClassName, corridorPath, leftAnimation, rightAnimation],
   );
 
@@ -154,6 +156,7 @@ function ImageStreamHero({
                     borderRadius: `${corridorPath.cardRadius}cqw`,
                     animation: `${animationName} ${speed}s linear infinite`,
                     animationDelay: `${-(index * speed) / cards}s`,
+                    animationPlayState: isPaused ? "paused" : "running",
                     backfaceVisibility: "hidden",
                   }}
                 >
@@ -175,6 +178,10 @@ function ImageStreamHero({
       </div>
 
       {children}
+      <button className="image-stream-toggle" type="button" aria-pressed={isPaused} onClick={() => setIsPaused((value) => !value)}>
+        {isPaused ? "Görsel akışını sürdür" : "Görsel akışını duraklat"}
+      </button>
+      <noscript><style>{`.${cardClassName}{animation-play-state:paused!important}.image-stream-toggle{display:none}`}</style></noscript>
     </div>
   );
 }

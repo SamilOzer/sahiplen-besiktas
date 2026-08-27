@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 
-import { Notice } from "@/components/ui/Notice";
+import { ContactComposer } from "@/components/contact/ContactComposer";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { municipality } from "@/config/municipality";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata(
   "İletişim",
-  "Beşiktaş Belediyesi hayvan hizmetleri için onaylı iletişim kanallarının sunulacağı iletişim sayfası.",
+  "Beşiktaş Belediyesi Çözüm Merkezi, hayvan hizmetleri ve yazılı iletişim kanallarına ulaşın.",
+  "/iletisim",
 );
 
 export default function ContactPage() {
@@ -16,7 +18,7 @@ export default function ContactPage() {
         <PageHeader
           eyebrow="İletişim"
           title="Doğru konu, doğru kanal, açık bir sonraki adım."
-          description="Onaylı telefon, e-posta ve konum bilgileri kurum tarafından sağlandığında doğrudan erişilebilir biçimde burada yayımlanacaktır."
+          description="Sahiplendirme, kayıp veya bulunan hayvan bildirimi ve diğer hizmet talepleri için belediyenin iletişim kanallarına doğrudan ulaşın."
           context="İletişim / Hizmet yönlendirmesi"
         />
 
@@ -24,13 +26,13 @@ export default function ContactPage() {
           <section className="contact-panel" aria-labelledby="contact-channels-title">
             <div className="contact-panel__intro">
               <p className="eyebrow">İletişim kanalları</p>
-              <h2 id="contact-channels-title">Yardım istediğiniz konuyu açıkça yönlendireceğiz.</h2>
-              <p>Temel kanallar doğrulandıktan sonra tek dokunuşla aranabilir ve erişilebilir olacaktır.</p>
+              <h2 id="contact-channels-title">Bir telefonla doğru birime ulaşın.</h2>
+              <p>Hayvan hizmetleri hakkında bilgi ve talepleriniz için Çözüm Merkezi ile görüşün. Acil hayvan ambulansı için 2’yi tuşlayarak MOBİVET desteği isteyebilirsiniz.</p>
             </div>
             <address className="contact-list">
-              <div><span>Telefon</span><strong>Onaylı bilgi bekleniyor</strong></div>
-              <div><span>E-posta</span><strong>Onaylı bilgi bekleniyor</strong></div>
-              <div><span>Konum</span><strong>Onaylı bilgi bekleniyor</strong></div>
+              <div><span>Çözüm Merkezi</span><a href={municipality.phoneHref}>{municipality.phone}</a></div>
+              <div><span>Belediye genel talep e-postası</span><a href={`mailto:${municipality.email}`}>{municipality.email}</a></div>
+              <div><span>Levent Hizmet Binası · Belediye genel adresi</span><strong>{municipality.address}</strong></div>
             </address>
             <div className="contact-context" aria-hidden="true">
               <span>01 Sahiplendirme</span>
@@ -39,46 +41,15 @@ export default function ContactPage() {
             </div>
           </section>
 
-          <section className="contact-form-panel" aria-labelledby="contact-form-title">
-            <p className="article-kicker">Form altyapısı · Demo</p>
-            <h2 id="contact-form-title">Mesajınızı hazırlayın</h2>
-            <p id="contact-form-help" className="form-helper">
-              Bu form yalnızca alan ve erişilebilirlik yapısını gösterir; veri göndermez.
-            </p>
-            <form className="contact-form" aria-describedby="contact-form-help">
-              <div className="form-field">
-                <label htmlFor="full-name">Ad soyad</label>
-                <input id="full-name" name="fullName" type="text" autoComplete="name" />
-              </div>
-              <div className="form-field">
-                <label htmlFor="email">E-posta</label>
-                <input id="email" name="email" type="email" autoComplete="email" />
-              </div>
-              <div className="form-field">
-                <label htmlFor="subject">Konu</label>
-                <select id="subject" name="subject" defaultValue="">
-                  <option value="" disabled>Konu seçin</option>
-                  <option value="adoption">Sahiplendirme</option>
-                  <option value="lost-animal">Kayıp hayvan</option>
-                  <option value="other">Diğer</option>
-                </select>
-              </div>
-              <div className="form-field form-field--message">
-                <label htmlFor="message">Mesaj</label>
-                <textarea id="message" name="message" rows={6} />
-              </div>
-              <button className="button button--primary" type="submit" disabled>
-                Gönderim entegrasyonu bekleniyor
-              </button>
-            </form>
-          </section>
+          <ContactComposer />
         </div>
 
-        <Notice title="İçerik ve entegrasyon onayı gerekli">
-          <p>
-            İletişim bilgileri, form alıcısı, kişisel veri metni ve gönderim iş akışı kurum tarafından doğrulanmadan etkinleştirilmeyecektir.
-          </p>
-        </Notice>
+        <section className="service-callout" aria-labelledby="urgent-contact-title">
+          <div><p className="eyebrow">Acil durumda</p><h2 id="urgent-contact-title">Yazılı yanıtı beklemeyin.</h2>
+            <p>MOBİVET için Çözüm Merkezi’ni arayın; hayvanın konumunu ve gözlemlediğiniz durumu aktarın. Yazılı iletişim acil müdahale kanalı değildir.</p></div>
+          <a className="button button--primary" href={municipality.phoneHref}>{municipality.phone} · Ara</a>
+        </section>
+        <p className="source-note">Kaynaklar: <a href={municipality.sources.contact}>Belediye iletişim bilgileri</a> ve <a href={municipality.sources.ambulance}>MOBİVET</a>. Kontrol: 27 Ağustos 2026. Ziyaret öncesinde ilgili birimi arayarak güncel bilgiyi teyit edin.</p>
       </div>
     </div>
   );

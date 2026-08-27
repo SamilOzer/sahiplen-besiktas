@@ -11,6 +11,7 @@ import "@/styles/homepage.css";
 export const metadata: Metadata = createPageMetadata(
   "Ana sayfa",
   "Beşiktaş Belediyesi hayvan sahiplendirme, kayıp hayvan ilanları ve güvenilir bilgi platformu.",
+  "/",
 );
 
 export default function HomePage() {

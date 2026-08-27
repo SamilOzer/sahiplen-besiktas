@@ -2,11 +2,11 @@
 
 import { PawPrint } from "@phosphor-icons/react/PawPrint";
 import Image from "next/image";
+import Link from "next/link";
 import {
   type MouseEvent as ReactMouseEvent,
   useEffect,
   useRef,
-  useState,
 } from "react";
 
 import {
@@ -16,6 +16,7 @@ import {
   sterilizationStatusLabels,
 } from "@/lib/animal-labels";
 import type { AnimalRecord } from "@/types/animal";
+import { useFavorite } from "@/components/animals/useFavorite";
 
 interface AnimalCardProps {
   readonly animal: AnimalRecord;
@@ -32,7 +33,7 @@ export function AnimalCard({ animal }: AnimalCardProps) {
   const cardRef = useRef<HTMLElement>(null);
   const frameRef = useRef<number | null>(null);
   const pendingPointerRef = useRef<PointerPosition | null>(null);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, toggleFavorite] = useFavorite(animal.id);
 
   useEffect(
     () => () => {
@@ -61,7 +62,7 @@ export function AnimalCard({ animal }: AnimalCardProps) {
   }
 
   function handleMouseMove(event: ReactMouseEvent<HTMLElement>) {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) {
       return;
     }
 
@@ -123,6 +124,8 @@ export function AnimalCard({ animal }: AnimalCardProps) {
     healthStatusLabels[animal.healthStatus],
   ].join(", ");
 
+  if (animal.isDemo) return null;
+
   return (
     <article
       aria-label={accessibleSummary}
@@ -152,7 +155,7 @@ export function AnimalCard({ animal }: AnimalCardProps) {
           ) : (
             <div className="animal-card__placeholder">
               <span>{speciesLabels[animal.species]}</span>
-              <small>Onaylı görsel alanı</small>
+              <small>Görsel paylaşılmadı</small>
             </div>
           )}
         </div>
@@ -177,6 +180,7 @@ export function AnimalCard({ animal }: AnimalCardProps) {
             {speciesLabels[animal.species]}
           </span>
         </h3>
+        <Link className="animal-card__detail-link" href={`/sahiplendirme/${animal.slug}`} aria-label={`${animal.name} hakkında bilgi alın`} />
 
         <button
           aria-label={
@@ -186,7 +190,7 @@ export function AnimalCard({ animal }: AnimalCardProps) {
           }
           aria-pressed={isFavorite}
           className="animal-card__favorite"
-          onClick={() => setIsFavorite((current) => !current)}
+          onClick={toggleFavorite}
           onMouseEnter={() =>
             cardRef.current?.setAttribute("data-favorite-hover", "true")
           }

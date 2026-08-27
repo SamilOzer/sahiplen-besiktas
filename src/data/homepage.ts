@@ -2,50 +2,36 @@ import type {
   HomepageEditorialItem,
   HomepageKnowledgeItem,
 } from "@/types/homepage";
+import { municipality } from "@/config/municipality";
+import { knowledgeArticles } from "@/data/academy";
 
-/**
- * These are content-architecture slots, not claims about current municipal
- * operations. Approved institutional copy can replace them without changing
- * the homepage layout.
- */
+/** Source-backed summaries for the reusable homepage service section. */
 export const municipalContentSlots = [
   {
     number: "01",
-    title: "Hizmet kapsamı",
+    title: "Sahiplendirme",
     description:
-      "Onaylı hayvan hizmetleri ve ilgili birim bilgileri bu alanda yayımlanacaktır.",
-    status: "Kurum onayı bekleniyor",
+      "Tanışma, ziyaret ve sahiplendirme süreci için belediyenin güncel hizmet bilgisini inceleyin.",
+    href: municipality.sources.adoption,
   },
   {
     number: "02",
-    title: "Çalışma yaklaşımı",
+    title: "Veteriner hizmetleri",
     description:
-      "Doğrulanmış süreç ve kamusal değer anlatısı kurum içeriği sağlandığında eklenecektir.",
-    status: "Kurum onayı bekleniyor",
+      "Muayene, tedavi ve koruyucu hizmetlerin kapsamına resmî hizmet sayfasından ulaşın.",
+    href: municipality.sources.rehabilitation,
   },
   {
     number: "03",
-    title: "Şeffaf bilgi",
+    title: "Doğru iletişim",
     description:
-      "Kaynaklı veriler ve güncel hizmet yönlendirmeleri hazır olduğunda burada sunulacaktır.",
-    status: "Kaynaklı veri bekleniyor",
+      "Hayvan hizmetlerine ilişkin bilgi ve taleplerinizi Çözüm Merkezi’ne iletin.",
+    href: municipality.sources.contact,
   },
 ] as const satisfies readonly HomepageEditorialItem[];
 
-export const homepageKnowledgeItems = [
-  {
-    title: "Sahiplenme rehberi",
-    description:
-      "Sahiplenme öncesi hazırlık ve sorumluluklar için onaylı içerik alanı.",
-  },
-  {
-    title: "Kayıp hayvan rehberi",
-    description:
-      "Kayıp önleme ve kayıp durumunda izlenecek adımlar için içerik alanı.",
-  },
-  {
-    title: "Bakım ve birlikte yaşam",
-    description:
-      "Günlük bakım ve sorumlu birlikte yaşam konuları için uzman onaylı alan.",
-  },
-] as const satisfies readonly HomepageKnowledgeItem[];
+export const homepageKnowledgeItems: readonly HomepageKnowledgeItem[] = knowledgeArticles.slice(0, 3).map((article) => ({
+  title: article.title,
+  description: article.description,
+  href: `/akademi/${article.slug}`,
+}));

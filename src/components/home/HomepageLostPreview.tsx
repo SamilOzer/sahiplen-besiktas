@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { formatListingDate } from "@/lib/animal-filters";
 
 import {
   lostAnimalStatusLabels,
@@ -11,6 +13,7 @@ interface HomepageLostPreviewProps {
 }
 
 export function HomepageLostPreview({ animal }: HomepageLostPreviewProps) {
+  if (animal.isDemo) return null;
   return (
     <article className="home-lost-card" data-status={animal.status}>
       <div className="home-lost-card__media">
@@ -24,21 +27,20 @@ export function HomepageLostPreview({ animal }: HomepageLostPreviewProps) {
         ) : (
           <div className="home-lost-card__placeholder" aria-hidden="true">
             <span>{speciesLabels[animal.species]}</span>
-            <small>İlan görseli alanı</small>
+            <small>Görsel paylaşılmadı</small>
           </div>
         )}
       </div>
 
       <div className="home-lost-card__content">
         <div className="home-preview__badges">
-          {animal.isDemo ? <span className="demo-badge">Demo ilan</span> : null}
           <span className="status-badge" data-status={animal.status}>
             {lostAnimalStatusLabels[animal.status]}
           </span>
         </div>
         <p className="home-lost-card__meta">{speciesLabels[animal.species]}</p>
-        <h3>{animal.name}</h3>
-        <p>{animal.location} · {animal.lostDate ?? "Tarih belirtilmedi"}</p>
+        <h3><Link href={`/kayip-hayvanlar/${animal.slug}`}>{animal.name}</Link></h3>
+        <p>{animal.location} · {formatListingDate(animal.lostDate)}</p>
       </div>
     </article>
   );

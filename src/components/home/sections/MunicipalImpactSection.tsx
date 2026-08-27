@@ -20,8 +20,8 @@ export function MunicipalImpactSection({
             <h2 id="home-impact-title">Kamusal hizmet, açık bilgiyle güçlenir.</h2>
           </div>
           <p>
-            Bu yapı, onaylı hizmet kapsamını ve belediyenin çalışmalarını
-            kaynaklarıyla birlikte sunmak üzere hazırlandı.
+            Hizmet kapsamını resmî kaynaklardan inceleyin; ziyaret ve başvuru
+            öncesinde güncel bilgiyi ilgili birimle teyit edin.
           </p>
         </div>
 
@@ -34,6 +34,7 @@ export function MunicipalImpactSection({
                 <p>{item.description}</p>
               </div>
               {item.status ? <span className="home-content-status">{item.status}</span> : null}
+              {item.href ? <a href={item.href}>Resmî bilgi</a> : null}
             </li>
           ))}
         </ol>

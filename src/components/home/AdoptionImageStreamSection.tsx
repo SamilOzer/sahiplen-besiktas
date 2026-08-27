@@ -5,47 +5,47 @@ import { ImageStreamHero } from "@/components/ui/image-stream-hero";
 const adoptionImages = [
   {
     src: "/resimler/iletişim2.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim3.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim4.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim5.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim6.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim7.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim8.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim9.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim10.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim11.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
   {
     src: "/resimler/iletişim1.avif",
-    alt: "Sahiplendirilmeyi bekleyen hayvan",
+    alt: "",
   },
 ] as const;
 

@@ -2,30 +2,34 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import { Notice } from "@/components/ui/Notice";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { municipality } from "@/config/municipality";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata(
   "Hakkımızda",
   "Beşiktaş Belediyesi hayvan hizmetleri platformunun amacı, kapsamı ve içerik yaklaşımı hakkında bilgi.",
+  "/hakkimizda",
 );
 
 const principles = [
   {
     number: "01",
-    title: "Açık yönlendirme",
-    description: "Kritik bilgi, gereksiz etkileşimlerin arkasına saklanmadan sunulur.",
+    title: "Sahiplendirme",
+    description: "Hayvanlarla tanışma ve sahiplenme süreci için belediyenin ilgili birimlerinden bilgi alınabilir.",
+    href: municipality.sources.adoption,
   },
   {
     number: "02",
-    title: "Sorumlu temsil",
-    description: "Hayvanlar birer kayıt değil, ihtiyaçları ve karakterleri olan bireyler olarak ele alınır.",
+    title: "Bakım ve rehabilitasyon",
+    description: "Sokak Hayvanları Rehabilitasyon Merkezi’nde muayene, tedavi, kısırlaştırma ve koruyucu hekimlik hizmetleri sunulur.",
+    href: municipality.sources.rehabilitation,
   },
   {
     number: "03",
-    title: "Doğrulanmış içerik",
-    description: "Kurumsal bilgi ve yönlendirmeler yalnızca onaylı kaynaklarla yayımlanır.",
+    title: "Özel bakım ihtiyacı",
+    description: "Engelli Kedi Ünitesi, sokakta yaşayan ve özel bakım ihtiyacı bulunan kedilere destek ve barınma sağlar.",
+    href: municipality.sources.assistedCare,
   },
 ] as const;
 
@@ -35,8 +39,8 @@ export default function AboutPage() {
       <div className="container section">
         <PageHeader
           eyebrow="Hakkımızda"
-          title="Birlikte yaşam için tasarlanmış kamusal bir platform."
-          description="Sahiplendirme, kayıp hayvan ilanları ve güvenilir bilgiye erişimi tek, anlaşılır ve erişilebilir bir dijital hizmette bir araya getiriyoruz."
+          title="Birlikte yaşam, ortak sorumluluk."
+          description="Beşiktaş’ın hayvan hizmetlerine, sahiplenme bilgilerine ve doğru iletişim kanallarına anlaşılır ve erişilebilir bir yerden ulaşın."
         />
 
         <section className="about-feature" aria-labelledby="about-purpose">
@@ -50,10 +54,10 @@ export default function AboutPage() {
             <figcaption>Temsilî fotoğraf · Kurumsal hizmet kaydı değildir</figcaption>
           </figure>
           <div className="about-feature__copy">
-            <p className="eyebrow">Platformun amacı</p>
-            <h2 id="about-purpose">Daha az adım, daha açık bilgi, daha doğru karşılaşmalar.</h2>
+            <p className="eyebrow">İnsanı ve hayvanı birlikte düşünmek</p>
+            <h2 id="about-purpose">Bir yuvadan fazlası: yaşam boyu bir bağ.</h2>
             <p>
-              Tasarımın görevi yalnızca güzel görünmek değil; vatandaşın doğru içeriğe hızlıca ulaşmasını, bir hayvanı sorumlu biçimde tanımasını ve sonraki adımı güvenle anlayabilmesini sağlamaktır.
+              Sahiplenme, bir hayvanın ihtiyaçlarını anlamakla başlar. Bu platform; tanışma sürecine hazırlanmayı, kayıp ve bulunan hayvanlarla ilgili bilgiye erişmeyi ve belediye hizmetlerine doğru kanaldan ulaşmayı kolaylaştırır.
             </p>
             <ButtonLink href="/sahiplendirme" variant="text">Yuva Ol&apos;u keşfet</ButtonLink>
           </div>
@@ -61,8 +65,8 @@ export default function AboutPage() {
 
         <section className="about-principles" aria-labelledby="about-principles">
           <div className="about-principles__intro">
-            <p className="eyebrow">Çalışma ilkeleri</p>
-            <h2 id="about-principles">Her ekranda aynı kamusal sorumluluk.</h2>
+            <p className="eyebrow">Belediye hizmetleri</p>
+            <h2 id="about-principles">Bakım, destek ve yeni başlangıçlar.</h2>
           </div>
           <ol className="about-principles__list">
             {principles.map((principle) => (
@@ -71,6 +75,7 @@ export default function AboutPage() {
                 <div>
                   <h3>{principle.title}</h3>
                   <p>{principle.description}</p>
+                  <a className="source-note" href={principle.href}>Resmî hizmet bilgisini inceleyin ↗</a>
                 </div>
               </li>
             ))}
@@ -79,21 +84,18 @@ export default function AboutPage() {
 
         <section className="about-process" aria-labelledby="about-process">
           <div>
-            <p className="eyebrow">İçerik süreci</p>
-            <h2 id="about-process">Tasarım hazır; kurumsal anlatı doğrulamayla tamamlanacak.</h2>
+            <p className="eyebrow">Doğru adım, açık bilgi</p>
+            <h2 id="about-process">İhtiyacınıza göre ilerleyin.</h2>
           </div>
           <div className="about-process__steps">
-            <p><span>01</span> Kurum içeriğinin sağlanması</p>
-            <p><span>02</span> Kaynak ve kapsam kontrolü</p>
-            <p><span>03</span> Erişilebilir dijital yayın</p>
+            <p><span>01</span> Sahiplenme öncesi rehberleri okuyun.</p>
+            <p><span>02</span> Hayvanın ihtiyaçlarını ilgili birimle görüşün.</p>
+            <p><span>03</span> Güncel hizmet ve başvuru koşullarını teyit edin.</p>
           </div>
         </section>
 
-        <Notice title="İçerik onayı bekleniyor">
-          <p>
-            Belediyenin birimleri, çalışmaları, hizmet kapsamı ve kurumsal anlatısı onaylı içerik sağlandıktan sonra eklenecektir. Burada doğrulanmamış kurumsal bilgi veya istatistik kullanılmamıştır.
-          </p>
-        </Notice>
+        <div className="button-group"><ButtonLink href="/akademi">Rehberleri okuyun</ButtonLink><ButtonLink href="/iletisim" variant="secondary">Belediyeye ulaşın</ButtonLink></div>
+        <p className="source-note">Hizmet açıklamaları bağlantı verilen belediye kaynaklarından derlenmiştir. Son kontrol: 27 Ağustos 2026. Güncel kapsam ve ziyaret bilgisi için <a href={municipality.sources.services}>resmî veteriner hizmetleri sayfasını</a> inceleyin.</p>
       </div>
     </div>
   );

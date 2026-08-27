@@ -6,7 +6,7 @@ export interface NavigationItem {
 export const primaryNavigation = [
   { href: "/", label: "Ana sayfa" },
   { href: "/sahiplendirme", label: "Yuva Ol" },
-  { href: "/kayip-hayvanlar", label: "Kayıp hayvanlar" },
+  { href: "/kayip-hayvanlar", label: "Kayıp Can Dostlarımız" },
   { href: "/akademi", label: "Akademi" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/iletisim", label: "İletişim" },

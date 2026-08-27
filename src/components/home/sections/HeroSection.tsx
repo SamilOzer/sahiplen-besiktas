@@ -23,18 +23,18 @@ export function HeroSection() {
             </span>
           </h1>
           <p className="home-hero__lead" data-hero-copy>
-            Sahiplenmeye hazır hayvanları keşfedin; kayıp hayvan ilanlarına ve
+            Sahiplenmeye hazır hayvanları keşfedin; kayıp can dostlarımızın ilanlarına ve
             güvenilir bilgiye tek bir kamusal hizmet üzerinden ulaşın.
           </p>
           <div className="button-group" data-hero-copy>
             <ButtonLink href="/sahiplendirme">Yuva Ol&apos;u keşfet</ButtonLink>
             <ButtonLink href="/kayip-hayvanlar" variant="secondary">
-              Kayıp hayvan ara
+              Kayıp can dostlarımız
             </ButtonLink>
           </div>
           <div className="home-hero__utility" data-hero-copy>
             <span>Sahiplendirme</span>
-            <span>Kayıp hayvanlar</span>
+            <span>Kayıp Can Dostlarımız</span>
             <span>Bilgi merkezi</span>
           </div>
         </div>
